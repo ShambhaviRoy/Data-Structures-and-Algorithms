@@ -74,7 +74,13 @@ class LinkedList:
             while cur:
                 value += cur.data 
             result.data = value % 10
-            #if l1 != None or l2 != None:
+            
+
+            if l1 != None or l2 != None:
+                more = addLists(l1.next, l2.next, 1 if value >= 10 else 0)
+                result.append(more)
+
+            return result
 
 
 
@@ -88,7 +94,7 @@ l2.append(5)
 l2.append(9)
 l2.append(2)
 
-ans = l1.sum_lists(l2)
+ans = l1.add_lists(l2)
 ans.print_list()
 
 
