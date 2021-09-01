@@ -7,48 +7,27 @@
 # Input: A -> B -> C - > D -> E -> C [the same C as earlier)
 # Output: C
 
-class Node:
-    def __init__(self, data):
-        self.data = data
-        self.next = None
+from linked_list import LinkedList
 
-class LinkedList:
-    def __init__(self):
-        self.head = None
+def find_beg(l1):
+    slow = l1.head
+    fast = l1.head
+    while (fast != None) and (fast.next != None):
+        fast = fast.next.next
+        slow = slow.next 
+        if fast is slow:
+            break
+    
+    if fast is None and fast.next is None:
+        return None
+    
+    slow = l1.head
+    
+    while fast is not slow:
+        fast = fast.next
+        slow = slow.next
+    return fast
 
-    def append(self, data):     #insert element at the end of linked list
-        new_node = Node(data)
-        #if linked list is empty
-        if self.head is None:
-            self.head = new_node
-            return
-        #if linked list is not empty
-        last_node = self.head
-        while last_node.next:
-            last_node = last_node.next
-        last_node.next = new_node
-
-    def print_list(self):
-        cur_node = self.head
-        while cur_node:
-            print(cur_node.data)
-            cur_node = cur_node.next
-
-    def find_beg(self):
-        slow = self.head
-        fast = self.head
-        while (fast != None) and (fast.next != None):
-            slow = slow.next
-            fast = fast.next.next
-            if slow == fast:
-                break
-        if (fast == None) and (fast.next == None):
-            return None
-        slow = head
-        while (slow != fast):
-            slow = slow.next
-            fast = fast.next
-        return fast
 
 llist = LinkedList()
 llist.append("A")
@@ -58,5 +37,5 @@ llist.append("B")
 llist.append("D")
 print("Original LL:")
 llist.print_list()
-ans = llist.find_beg()
+ans = find_beg(llist)
 print(ans) 
