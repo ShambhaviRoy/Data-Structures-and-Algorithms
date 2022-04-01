@@ -14,13 +14,14 @@ def find_cont_subarrays(arr):
     subarray = []
 
     while i < n:
-        end = arr[i]
-        while end < n-1 and arr[end] + 1 == arr[end]:
-            subarray.append(arr[i])
+        end = i
+        
+        while end < n-1 and arr[end] + 1 == arr[end+1]:
+            subarray.append(arr[end])
             end += 1
-        ans.append(subarray)
+            
+        ans.append(subarray)               
         i = end + 1
-        subarray = []
 
     return ans
 
