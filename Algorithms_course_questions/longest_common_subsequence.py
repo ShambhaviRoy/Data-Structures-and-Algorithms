@@ -29,9 +29,9 @@ def LCS_recursive(X, Y):
         return 0
 
     if X[0] == Y[0]:
-        return 1 + LCS(X[1:], Y[1:])
+        return 1 + LCS_recursive(X[1:], Y[1:])
     else:
-        return max(LCS(X, Y[1:]), LCS(X[1:], Y))
+        return max(LCS_recursive(X, Y[1:]), LCS_recursive(X[1:], Y))
 
 
 
