@@ -1,4 +1,4 @@
-# Find the minimum length sorted subarray which makes the given array sorted
+# Find the minimum length unsorted subarray which makes the given array sorted
 
 # find starting index 'start' (scan from left to right)
 # find ending index 'end' (scan from right to left)
@@ -24,13 +24,8 @@ def find_subarray_length(arr):
 
     # to check whether sorting the subarray arr[start:end] makes arr sorted
     # find max and min element in arr[start:end]
-    maximum, minimum = arr[start], arr[start]
-
-    for i in range(start+1, end+1):
-        if arr[i] > maximum:
-            maximum = arr[i]
-        if arr[i] < minimum:
-            minimum = arr[i]
+    maximum = max(arr[start : end+1])
+    minimum = min(arr[start : end+1])
 
     # if there's an element greater than minimum in arr[0:start], change start to element index
     for i in range(start):
