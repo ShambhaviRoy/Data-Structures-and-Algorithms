@@ -1,3 +1,9 @@
+# Quick Sort Algorithm
+# Select a pivot index and partition the array. Elements on left of the pivot are lesser than pivot and elements on the right of pivot are greater than pivot.
+# Then the parts are sorted --> done recursively.
+
+# Time Complexity = O(n^2) in worst case
+
 def partition(start, end, arr):
     pivot_index = start
     pivot = arr[pivot_index]
