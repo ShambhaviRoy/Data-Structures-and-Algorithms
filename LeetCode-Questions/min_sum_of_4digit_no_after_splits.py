@@ -25,14 +25,14 @@ def min_sum(num):
     # iterating over num_digits
     ans = 0
     position = 0
-    even_iteration = False
+    even_iteration = True
     for i in range(4):
         ans += num_digits[i] * (10**position)
-        if even_iteration:
+        if not even_iteration:
             position += 1
-            even_iteration = False
-        else:
             even_iteration = True
+        else:
+            even_iteration = False
     return ans
 
     
