@@ -6,9 +6,9 @@
 # Input: "Mr John Smith    ", 13
 # Output: "Mr%20John%20Smith"
 
-# helper function
-def idx(char, str):
-    return str.index(char)
+# Approach 1: Scan through the string for spaces, if found, create a new copy of the string replacing spaces with '%20'
+# Time complexity = O(n^2)
+# Space complexity = O(n)
 
 def URLify(input_str, length):
     # truncate to length
@@ -16,12 +16,26 @@ def URLify(input_str, length):
 
     for char in str:
         if char == ' ':
-            cidx = idx(char, str)
-            str = str[: cidx] + '%20' + str[cidx+1 :]
+            i = str.index(char)
+            str = str[: i] + '%20' + str[i+1 :]
+            print(str)
         
     return str 
 
+
+# Approach 2: Convert the string to a list, traverse through the list to replace the space with '%20' and join it in the end
+# Time complexity = O(n)
+# Space complexity = O(n)
+
+def URLify2(input_str, length):
+    str_list = list(input_str[:length])
+    for i in range(length):
+        if str_list[i] == ' ':
+            str_list[i] = '%20'
+    return ''.join(str_list)
+
+
 input_str1 = "Mr John Smith      "
-input_str2 = "Shambhavi Roy        "
-print(URLify(input_str1, 13))
-print(URLify(input_str2, 13))
+# input_str2 = "Shambhavi Roy        "
+print(URLify2(input_str1, 13))
+# print(URLify(input_str2, 13))
