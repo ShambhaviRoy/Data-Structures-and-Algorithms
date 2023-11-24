@@ -1,5 +1,5 @@
 class Stack:
-    def _init_(self, items):
+    def __init__(self):
         self.items = []
         self.size = 0
         
@@ -10,8 +10,10 @@ class Stack:
         
    
     def pop(self):
-        self.size -= 1
-        return self.items.pop()
+        if self.size >= 1:
+            element = self.items.pop()
+            self.size -= 1
+        return element
     
     
     def is_empty(self):
