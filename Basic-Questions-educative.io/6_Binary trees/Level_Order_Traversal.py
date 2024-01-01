@@ -96,3 +96,13 @@ tree.root.left.left = Node(4)
 tree.root.left.right = Node(5)
 
 print(tree.print_tree("levelorder"))
+
+tree = BinaryTree(1)
+tree.root.left = Node(2)
+tree.root.right = Node(3)
+tree.root.left.left = Node(4)
+tree.root.left.right = Node(5)
+tree.root.right.right = Node(6)
+tree.root.left.left.left = Node(7)
+tree.root.left.left.left.left = Node(8)
+print(tree.print_tree("inorder"))
