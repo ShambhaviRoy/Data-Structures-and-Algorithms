@@ -7,7 +7,7 @@
 # pale, bale -> true
 # pale, bae -> false
 
-
+# Time complexity = O(n), Space complexity = O(n), n = len(longer string)
 def oneEditAway(str1, str2):
     # Length check
     if len(str1) - len(str2) > 1:
@@ -26,7 +26,8 @@ def oneEditAway(str1, str2):
             # Ensure that this is the first difference found
             if foundDifference:
                 return False
-            return True
+            else:
+                foundDifference = True
 
             # On replace, move shorter pointer
             if len(s1) == len(s2):
@@ -41,6 +42,34 @@ def oneEditAway(str1, str2):
 
     return True 
 
+
+# Approach 2: Using dict
+# Store the counts of characters of longer string in a dict
+# Iterate over shorter string, drop counts of char from dict, but if only 1 char found, drop it from dict
+# Check if the dict has only 1 key
+# Time complexity = O(n), Space Complexity = O(n), n = len(longer string)
+import collections
+
+def one_edit_away2(str1, str2):
+    longer = str1 if len(str1) > len(str2) else str2
+    shorter = str1 if len(str1) < len(str2) else str1
+
+    if len(longer) - len(shorter) > 1:
+        return False
+    
+    char_dict = collections.Counter(longer)
+    for char in shorter:
+        if char in char_dict:
+            count = char_dict[char]
+            if count > 1:
+                char_dict[char] -= 1
+            else:
+                del char_dict[char]
+
+    return len(char_dict.keys()) <= 1
+
+
 str1 = "pale"
-str2 = "ple"
+str2 = "plex"
 print(oneEditAway(str1, str2))
+print(one_edit_away2(str1, str2))

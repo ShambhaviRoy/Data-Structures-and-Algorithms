@@ -10,18 +10,8 @@
 
 
 def setZero(matrix):
-    rowHasZero = False
-    colHasZero = False
-
-    # Check if 1st row has zero
-    for j in range(len(matrix[0])):
-        if matrix[0][j] == 0:
-            rowHasZero = True
-
-    # Check if 1st column has zero
-    for i in range(len(matrix)):
-        if matrix[i][0] == 0:
-            colHasZero = True
+    rowHasZero = True if 0 in matrix[0][:] else False # Check if 1st row has zero
+    colHasZero = True if 0 in matrix[:][0] else False # Check if 1st column has zero
 
     # Traverse through matrix
     for i in range(1, len(matrix)):
@@ -32,15 +22,15 @@ def setZero(matrix):
 
     # Nullify rows based on value in first column
     for i in range(1, len(matrix)):
-        if matrix[i][0]:
+        if matrix[i][0] == 0:
             matrix = nullifyRow(matrix, i)
 
-    # Nullify colums based on value in first row
+    # # Nullify colums based on value in first row
     for j in range(1, len(matrix[0])):
-        if matrix[0][j]:
+        if matrix[0][j] == 0:
             matrix = nullifyColumn(matrix, j)
     
-    # Nullify first row and column if necessary
+    # Nullify first row and column if necessary (if a 0 has come in the first row/column in the previous steps)
     if rowHasZero:
         matrix = nullifyRow(matrix, 0)
 

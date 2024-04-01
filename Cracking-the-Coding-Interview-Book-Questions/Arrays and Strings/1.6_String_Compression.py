@@ -3,6 +3,7 @@
 # "compressed" string would not become smaller than the original string, your method should return
 # the original string. You can assume the string has only uppercase and lowercase letters (a - z).
 
+# Time Complexity = O(n), Space Complexity = O(n), n = len(original)
 def compression(original):
     compressed = ""
     countConsecutive = 0

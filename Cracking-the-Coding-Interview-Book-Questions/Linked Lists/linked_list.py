@@ -40,4 +40,27 @@ class LinkedList:
             last = nxt 
             nxt = last.next
         return last
+    
 
+    def insert_at_position(self, data, pos):
+        new_node = Node(data)
+        if(pos == 0):
+            new_node.next = self.head
+            self.head.next = new_node
+        prev = self.head
+        for i in range(pos):
+            prev = prev.next
+        new_node.next = prev.next
+        prev.next = new_node
+        return self.head
+
+    
+    def delete_at_position(self, pos):
+        if(pos == 0):
+            self.head = self.head.next
+        prev = None
+        prev.next = self.head
+        for i in range(pos):
+            prev = prev.next
+        prev.next = prev.next.next
+        return self.head

@@ -6,49 +6,30 @@
 # Input: 3 -> 5 -> 8 -> 5 -> 10 -> 2 -> 1 [partition = 5]
 # Output: 3 -> 1 -> 2 -> 10 -> 5 -> 5 -> 8
 
-class Node:
-    def __init__(self, data):
-        self.data = data
-        self.next = None
 
-class LinkedList:
-    def __init__(self):
-        self.head = None
+from linked_list import LinkedList 
 
-    def append(self, data):
-        new_node = Node(data)
-        #if linked list is empty
-        if self.head is None:
-            self.head = new_node
-            return
-        #if linked list is not empty
-        last_node = self.head
-        while last_node.next:
-            last_node = last_node.next
-        last_node.next = new_node
-
-    def print_list(self):
-        cur_node = self.head
-        while cur_node:
-            print(cur_node.data)
-            cur_node = cur_node.next
-
-    def partition(self, x):
-        cur = self.head
-        # LLs to store two parts
-        left = LinkedList()
-        right = LinkedList()
-        # Appending nodes to left and right LL
-        while cur:
-            if cur.data < x:
-                left.append(cur.data)
-            elif cur.data >= x:
-                right.append(cur.data) 
-        # Merging both left and right
-        while left.node:
-            if left.node.next == None: # last node of left LL found
-                left.node.next = right.head
-        return left
+def partition(ll, x):
+    cur = ll.head
+    # LLs to store two parts
+    left = LinkedList()
+    right = LinkedList()
+    
+    # Appending nodes to left and right LL
+    while cur:
+        if cur.data < x:
+            left.append(cur.data)
+        else:
+            right.append(cur.data) 
+        cur = cur.next
+    
+    # Merging both left and right
+    left_head = left.head
+    while left_head:
+        if left_head.next == None: # last node of left LL found
+            left_head.next = right.head
+        left_head = left_head.next
+    return left
 
 
 llist = LinkedList()
@@ -59,5 +40,5 @@ llist.append(5)
 llist.append(10)
 llist.append(2)
 llist.append(1)
-l1 = llist.partition(5)
+l1 = partition(llist, 5)
 l1.print_list()

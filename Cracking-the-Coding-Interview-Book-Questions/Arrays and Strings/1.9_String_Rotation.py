@@ -1,4 +1,4 @@
-# Assume you have a method isSubst ring which checks if one word is a substring
+# Assume you have a method isSubstring which checks if one word is a substring
 # of another. Given two strings, s1 and s2, write code to check if s2 is a rotation of s1 using only one
 # call to isSubstring (e.g., "waterbottle" is a rotation of"erbottlewat").
 
@@ -14,11 +14,6 @@ def isSubstring(str1, str2):
     for ch in str2:
         if ch in letters:
             letters[ch] -= 1
-        
-    #for ch, count in letters.items():
-    #    if count != 0:
-    #        return False
-    #return True
 
     return all(value == 0 for value in letters.values())
 

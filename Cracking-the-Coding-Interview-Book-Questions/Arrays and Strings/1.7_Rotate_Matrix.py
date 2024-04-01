@@ -1,6 +1,8 @@
 #Given an image represented by an NxN matrix, where each pixel in the image is 4
 # bytes, write a method to rotate the image by 90 degrees. Can you do this in place?
 
+
+# Time Complexity = O(N^2), Space Complexity = O(N^2)
 def rotate_matrix(matrix):
     if (len(matrix) == 0) or (len(matrix) != len(matrix[0])):
         return False
