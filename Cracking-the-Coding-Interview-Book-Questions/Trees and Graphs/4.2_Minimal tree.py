@@ -12,7 +12,7 @@ class TreeNode:
 
     
     def create_minimal_BST2(self, arr, start, end):
-        if end < start:
+        if end <= start:
             return None
         mid = (start + end)//2
         n = TreeNode(arr[mid])

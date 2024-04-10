@@ -9,10 +9,13 @@ class setofStacks:
     def isEmpty(self):
         last = self.getLastStack()
         return not last or last.is_empty()
+    
+    def isFull(self):
+        return not(self.isEmpty)
 
     
     def getLastStack(self):
-        if not self.set:
+        if self.set:
             return self.set[-1]
     
     
