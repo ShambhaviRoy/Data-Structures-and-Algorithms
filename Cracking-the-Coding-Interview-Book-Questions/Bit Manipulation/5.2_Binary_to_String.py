@@ -4,15 +4,12 @@
 
 
 def binary_to_string(num):
-    if num >= 1 or num <= 0:
+    if num >= 1:
         return 'ERROR'
     
     ans = '.'
 
     while(num > 0):
-        if(len(ans) >= 32):
-            return 'ERROR'
-        
         r = 2 * num
         if(r >= 1):
             num = r - 1
@@ -24,4 +21,4 @@ def binary_to_string(num):
     return ans
             
 
-print(binary_to_string(0.101))
+print(binary_to_string(0.72))
