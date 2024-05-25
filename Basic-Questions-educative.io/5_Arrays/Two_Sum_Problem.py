@@ -37,7 +37,7 @@ print(two_sum_hash_table(A,target))
 
 
 #Solution 3: 2 Indexes
-#Time Complexity = O(n) and Space Complexity = O(n)
+#Time Complexity = O(n) and Space Complexity = O(1)
 def two_sum(A, target):
     front = 0
     back = len(A) - 1

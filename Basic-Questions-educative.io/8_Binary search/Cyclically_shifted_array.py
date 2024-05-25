@@ -5,15 +5,24 @@ def find_index_of_smallest(A):
     low = 0
     high = len(A) - 1
 
+    if A[low] < A[high]:
+        return low
+
+    minimum = float('inf')
+
     while low <= high:
         mid = (low + high) // 2
 
-        if A[mid] <= A[high]:
-            high = mid
+        if A[mid] == A[low] and A[mid] == A[high]:
+            low += 1
+            high -= 1
+            minimum = min(minimum, A[mid])
         elif A[mid] > A[high]:
-            low = mid - 1
-
-    return low
+            low = mid+1
+        else:
+            minimum = min(minimum, A[mid])
+            high = mid-1
+    return minimum
 
 
 A = [7, 1, 2, 3, 4, 5, 6]
