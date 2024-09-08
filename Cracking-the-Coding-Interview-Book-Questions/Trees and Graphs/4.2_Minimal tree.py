@@ -16,9 +16,8 @@ class TreeNode:
             return None
         mid = (start + end)//2
         n = TreeNode(arr[mid])
-        n.left = self.create_minimal_BST2(arr, start, mid)
+        n.left = self.create_minimal_BST2(arr, start, mid-1)
         n.right = self.create_minimal_BST2(arr, mid+1, end)
-        print(n.value)
         return n
 
 

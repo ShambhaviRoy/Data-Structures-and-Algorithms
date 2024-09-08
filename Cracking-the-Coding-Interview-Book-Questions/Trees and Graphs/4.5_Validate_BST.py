@@ -16,10 +16,7 @@ class TreeNode:
             return True
         if node.value <= min or node.value > max:
             return False
-        if (not self.check_BST_helper(node.left, min, node.value)) or not (self.check_BST_helper(node.right, node.value, max)):
-            return False
-        else:
-            return True
+        return self.check_BST_helper(node.left, min, node.value) and self.check_BST_helper(node.right, node.value, max)
 
     
 
