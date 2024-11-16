@@ -28,8 +28,6 @@ def get_lowest_decreasing(build_runs):
 		build_percents.append(p)
 	l = [1] * len(build_percents)
 	start_index = [0]*len(build_percents)
-	l[0] = 1
-	start_index[0] = 0
 	
 	maximum = 1
 	max_at = 0
@@ -49,6 +47,52 @@ def get_lowest_decreasing(build_runs):
 		
     
 
+def get_longest_decreasing_brute_force(build_runs):
+	# precompute to get percentages
+	build_percents = []
+	for run in build_runs:
+		p = get_build_percent(run)
+		build_percents.append(p)
+
+	n = len(build_percents)
+
+	subsequence_len = [0]*n
+	answer = 0
+	for i in range(n):
+		j = i + 1
+		while j < n:
+			if build_percents[j] >= build_percents[j - 1]:
+				break
+			j += 1
+		subsequence_len[i] = (j - i)
+		if answer < subsequence_len[i]:
+			answer = subsequence_len[i]
+
+	return answer
+
+	
+def get_longest_decreasing_brute_force2(build_runs):
+	# precompute to get percentages
+	build_percents = []
+	for run in build_runs:
+		p = get_build_percent(run)
+		build_percents.append(p)
+
+	n = len(build_percents)
+
+	subsequence_len = [0]*n # len of subsequence ending at i
+	answer = 0
+	for i in range(n):
+		j = i - 1
+		while j >= 0:
+			if build_percents[j] <= build_percents[j + 1]:
+				break
+			j -= 1
+		subsequence_len[i] = (i - j)
+		if answer < subsequence_len[i]:
+			answer = subsequence_len[i]
+
+	return answer			
 
 
 builds = [
@@ -60,3 +104,5 @@ builds = [
 [True, False]
 ]
 print(get_lowest_decreasing(builds))
+print(get_longest_decreasing_brute_force(builds))
+print(get_longest_decreasing_brute_force2(builds))

@@ -91,6 +91,7 @@ def add_non_dependents(order, projects, index):
 
 def find_build_order(projects, dependencies):
     graph = build_graph(projects, dependencies)
+    print(graph)
     build_order = order_projects(graph.nodes)
     print(build_order)
     return build_order
