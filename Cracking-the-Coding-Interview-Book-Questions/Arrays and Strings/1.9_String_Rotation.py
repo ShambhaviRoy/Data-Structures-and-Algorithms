@@ -2,30 +2,28 @@
 # of another. Given two strings, s1 and s2, write code to check if s2 is a rotation of s1 using only one
 # call to isSubstring (e.g., "waterbottle" is a rotation of"erbottlewat").
 
-def isSubstring(str1, str2):
-    letters = dict()
-
-    for ch in str1:
-        if ch in letters:
-            letters[ch] += 1
-        else:
-            letters[ch] = 1
-
-    for ch in str2:
-        if ch in letters:
-            letters[ch] -= 1
-
-    return all(value == 0 for value in letters.values())
+def isSubstring(s1, s2):
+    longer = s1 if len(s1) >= len(s2) else s2
+    shorter = s2  if len(s1) >= len(s2) else s1
+    i = 0
+    while i < len(longer):
+        j = 0
+        while i < len(longer) and j < len(shorter) and longer[i] == shorter[j]:
+            i += 1
+            j += 1
+        if j == len(shorter):
+            return True
+        i += 1
+    return False
 
 def stringRotation(s1, s2):
+    if len(s1) != len(s2):
+        return False
+    
     s1 = s1.lower()
     s2 = s2.lower()
-    if len(s1) == 0 or len(s2) == 0:
-        return False
-    elif (len(s1) != len(s2)):
-        return False
-    else:
-        return isSubstring(s1, s2)
+    return isSubstring(s1 + s1, s2)
+    
 
 s1 = "waterbottle"
 s2 = "erbottlewat"

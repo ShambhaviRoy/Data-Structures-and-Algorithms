@@ -1,5 +1,9 @@
 # Power Set: Write a method to return all subsets of a set.
 
+# s = ['a', 'b', 'c']
+# P(['a']) = [[], ['a']]
+# P(['a', 'b']) = [[], ['a'], ['b'], ['ab']]
+
 def get_subsets(s, index):
     all_subsets = []
     if(len(s) == index):
@@ -14,6 +18,7 @@ def get_subsets(s, index):
             new_subset.append(item)
             more_subsets.append(new_subset)
         all_subsets.extend(more_subsets)
+        print(f'all_subsets = {all_subsets}')
     return all_subsets
 
 
@@ -40,4 +45,4 @@ def convert_int_to_set(num, s):
     
 
 s = ['a', 'b', 'c']
-print(get_subsets2(s))
+print(get_subsets(s, 0))

@@ -2,9 +2,12 @@
 # Given two strings, write a method to decide if one is a permutation of the other.
 
 # Approach 1: Using dict
-# Add elements of each string in a dict, iterate through other dict and for each character, drop its count by 1 in the dict
+# Add elements of first string in a dict, iterate through other string and for each character, drop its count by 1 in the dict
 # Time Complexity = O(n), Space Complexity = O(n)
 def ispermutation(str1, str2):
+    if len(str1) != len(str2):
+        return False
+
     str1 = str1.lower()
     str2 = str2.lower()
     sdict = dict()
@@ -20,13 +23,11 @@ def ispermutation(str1, str2):
     for letter in str2:
         if letter in sdict:
             sdict[letter] -= 1
+            if sdict[letter] == 0:
+                sdict.pop(letter)
 
-    # check values in sdict
-    for char, count in sdict.items():
-        if count != 0:
-            return False
-
-    return True
+    # check sdict
+    return sdict == {}
 
 
 # Approach 2: Without using additional data structure
@@ -34,6 +35,8 @@ def ispermutation(str1, str2):
 # Finally check whether string 1 is reduced to ""
 # Time Complexity = O(n), Space Complexity = O(1)
 def is_permutation2(str1, str2):
+    if len(str1) != len(str2):
+        return False
     str1 = str1.lower()
     str2 = str2.lower()
     for char in str2:

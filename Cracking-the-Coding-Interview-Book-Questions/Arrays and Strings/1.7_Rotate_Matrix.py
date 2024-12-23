@@ -9,7 +9,7 @@ def rotate_matrix(matrix):
     
     n = len(matrix)
 
-    for layer in range(n):
+    for layer in range(n//2):
         first = layer
         last = n -1-layer
         for i in range(first, last):

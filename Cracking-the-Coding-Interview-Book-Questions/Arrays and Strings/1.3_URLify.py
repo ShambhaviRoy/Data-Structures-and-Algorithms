@@ -14,9 +14,8 @@ def URLify(input_str, length):
     # truncate to length
     str = input_str[:length]
 
-    for char in str:
+    for i, char in enumerate(str):
         if char == ' ':
-            i = str.index(char)
             str = str[: i] + '%20' + str[i+1 :]
             print(str)
         
@@ -35,7 +34,15 @@ def URLify2(input_str, length):
     return ''.join(str_list)
 
 
+# Approach 3: Convert the string to a list, split string on space and join the parts with '%20'
+# Time complexity = O(n)
+# Space complexity = O(n)
+
+def URLify3(input_str, length):
+    str = input_str[:length]
+    return str.replace(' ', '%20')
+
+
 input_str1 = "Mr John Smith      "
-# input_str2 = "Shambhavi Roy        "
 print(URLify2(input_str1, 13))
-# print(URLify(input_str2, 13))
+print(URLify3(input_str1, 13))

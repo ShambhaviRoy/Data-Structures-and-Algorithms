@@ -3,6 +3,38 @@ class Node:
         self.data = data
         self.next = None
 
+    def print_node(self):
+        if self and self.next:
+            print(f'Node.val = {self.data}, node.next.val = {self.next.data}')
+        elif self and not self.next:
+            print(f'Node.val = {self.data}, node.next.val = None')
+        else:
+            print('None found')
+
+
+def length_of_list(head):
+    length = 0
+    while head:
+        length += 1
+        head = head.next
+    return length
+
+def print_list(head):
+    while head:
+        print(head.data)
+        head = head.next
+
+def create_linked_list_from_array(arr):
+    if len(arr) == 0:
+        return None
+    llist = Node('*')
+    dummy = llist
+    for val in arr:
+        dummy.next = Node(val)
+        dummy = dummy.next
+    return llist.next
+
+
 class LinkedList:
     def __init__(self):
         self.head = None

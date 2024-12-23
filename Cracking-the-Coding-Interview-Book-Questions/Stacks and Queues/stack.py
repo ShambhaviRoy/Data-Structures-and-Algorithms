@@ -25,3 +25,7 @@ class Stack:
             return self.items[-1]
         return None
         
+    def print_stack(self):
+        while self.items:
+            print(self.peek())
+            self.pop()

@@ -39,7 +39,7 @@ def isUnique3(str):
 
 # Approach 4: Without additional data structure
 # Sort the string and traverse through it, if previous character is same as current, it does not have all unique characters
-# Time Complexity = O(n), Space Complexity = O(n)
+# Time Complexity = O(n log n), Space Complexity = O(n)
 def isUnique4(str):
     str = ''.join(sorted(str))
     for i in range(len(str)-1):
@@ -48,6 +48,15 @@ def isUnique4(str):
     return True
 
 
+# Approach 5: 2 pointer
+# Time Complexity = O(n^2), Space Complexity = O(1)
+def isUnique5(str):
+    for i in range(len(str)):
+        for j in range(i + 1, len(str)):
+            if str[i] == str[j]:
+                return False
+    return True
+
 
 
 str1 = "shambhavi"
@@ -55,3 +64,4 @@ print(isUnique1(str1))
 print(isUnique2(str1))
 print(isUnique3(str1))
 print(isUnique4(str1))
+print(isUnique5("abcdef"))

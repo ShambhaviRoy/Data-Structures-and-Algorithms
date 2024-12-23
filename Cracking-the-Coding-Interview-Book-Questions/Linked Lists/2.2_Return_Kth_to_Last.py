@@ -10,12 +10,23 @@ class LinkedList:
 
     def append(self, data):
         new_node = Node(data)
-        if self.head is None:
+        if not self.head:
             self.head = new_node
-        last_node = self.head
-        while last_node.next:
-            last_node = last_node.next
-        last_node = new_node
+        else:
+            # get last node
+            last = self.head
+            while last.next:
+                last = last.next
+            last.next = new_node
+            new_node.next = None
+            
+
+    def print_list(self):
+        curr = self.head
+        while curr:
+            print(curr.data)
+            curr = curr.next
+
 
     # k= 2 means second last element
     def k_to_last(self, k):
@@ -24,12 +35,11 @@ class LinkedList:
         count = 0
         if self.head is None:
             return None
-        while node1:
-            count += 1
-            if count >= k:
-                break
+        for i in range(k):
             node1 = node1.next
-        while node1 and node2.next:
+        print(f'node1.data = {node1.data}, node2.data = {node2.data}')
+        
+        while node1 and node2:
             node1 = node1.next
             node2 = node2.next
         return node2.data
@@ -41,7 +51,8 @@ llist.append("C")
 llist.append("D")
 llist.append("E")
 llist.append("F")
-print(llist.k_to_last(2))
+llist.print_list()
+print(f'kth to last node: {llist.k_to_last(2)}')
 
 
 

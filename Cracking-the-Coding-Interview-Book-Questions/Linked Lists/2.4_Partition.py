@@ -7,7 +7,7 @@
 # Output: 3 -> 1 -> 2 -> 10 -> 5 -> 5 -> 8
 
 
-from linked_list import LinkedList 
+from linked_list import LinkedList, Node 
 
 def partition(ll, x):
     cur = ll.head
@@ -42,3 +42,45 @@ llist.append(2)
 llist.append(1)
 l1 = partition(llist, 5)
 l1.print_list()
+
+
+# Approach 2: Create 2 linked lists (left and right) to keep the values lesser than partition and greater than partition. Merge them.
+
+def create_linked_list_from_array(arr):
+    if len(arr) == 0:
+        return None
+    llist = Node('*')
+    dummy = llist
+    for val in arr:
+        dummy.next = Node(val)
+        dummy = dummy.next
+    return llist.next
+
+
+def partition(node, x):
+    # return a new linked list
+    left = Node('*')
+    right = Node('*')
+    left_tail = left
+    right_tail = right
+
+    curr = node
+    while curr:
+        if curr.data < x:
+            # append to left
+            left_tail.next = Node(curr.data)
+            left_tail = left_tail.next
+        else:
+            # append to right
+            right_tail.next = Node(curr.data)
+            right_tail = right_tail.next
+        curr = curr.next
+
+    # merge left and right
+    left_tail.next = right.next
+    return left.next
+
+
+llist2 = create_linked_list_from_array([3, 5, 8, 5, 10, 2, 1])
+ans = partition(llist2, 5)
+ans.print_list()

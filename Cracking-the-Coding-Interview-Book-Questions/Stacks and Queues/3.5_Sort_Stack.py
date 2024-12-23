@@ -28,5 +28,4 @@ s.push(7)
 sorted_s = sort_stack(s)
 
 print('Elements in sorted order:')
-while sorted_s:
-    print(sorted_s.pop())
+sorted_s.print_stack()

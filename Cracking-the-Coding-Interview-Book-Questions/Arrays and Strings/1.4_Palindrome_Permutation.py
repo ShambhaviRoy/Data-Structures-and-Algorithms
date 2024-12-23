@@ -6,7 +6,7 @@
 # Output: True (permutations: "taco cat". "atco cta". etc.)
 
 
-# Approach 1: Scan through the string to keep counts of each character, at most 1 character can have count = 1
+# Approach 1: Scan through the string to keep counts of each character, at most 2 character can have odd count
 # Time complexity = O(n)
 # Space complexity = O(n)
 
@@ -24,7 +24,7 @@ def palinperm(input_str):
         if count %2 != 0:
             count_odd += 1
 
-    return (count_odd <= 1)
+    return (count_odd <= 2)
 
 
 # Approach 2: We do not need to know the count of each character, just need to know whether it is even/odd
@@ -43,10 +43,7 @@ def toggle_bit(bit_vector, position):
     if position < 0:
         return bit_vector
     mask = 1 << position
-    if(bit_vector & mask) == 0:
-        bit_vector = bit_vector | mask
-    else:
-        bit_vector = bit_vector & ~mask
+    bit_vector = bit_vector ^ mask
     return bit_vector
 
 
@@ -64,6 +61,7 @@ def bit_vector_palinperm(input_str):
     return (bit_vector & bit_vector-1) == 0
 
 
-print(bit_vector_palinperm("tacocat"))
+print(palinperm("taco cat"))
+print(bit_vector_palinperm("taco cat"))
 print(bit_vector_palinperm("shambhavi"))
 

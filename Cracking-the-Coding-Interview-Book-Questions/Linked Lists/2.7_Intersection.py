@@ -3,81 +3,84 @@
 # node of the first linked list is the exact same node (by reference) as the jth node of the second
 #linked list, then they are intersecting
 
-from linked_list import LinkedList
-    
-    
-    
-def intersection(l1, l2):
-    len1 = l1.lengthList()
-    len2 = l2.lengthList()
-    print(len1)
-    print(len2)
+from linked_list import *
 
-    
-    diff = 0
-    if len1 > len2:
-        longer = l1
-        shorter = l2
-        
-    else:
-        longer = l2
-        shorter = l1
-    
-    print(longer.head.data)
-    print(shorter.head.data)
-    
-    diff = longer.lengthList() - shorter.lengthList()
-    print('diff:',diff)
-    
-    last1 = l1.getLastNode()
-    last2 = l2.getLastNode()
-    
-    print(last1.data)
-    print(last2.data)
-    
-    if last1!= last2:
+
+# Approach 1: Using extra space  
+# Time Complexity = O(m + n), Space Complexity = O(m), m = len(l1), n = len(l2)
+def intersection_with_set(l1, l2):
+    if not l1 or not l2:
         return None
+    visited = set()
+    while l1:
+        visited.add(l1)
+        l1 = l1.next
+    while l2:
+        if l2 in visited:
+            return l2
+        l2 = l2.next
+    return None
     
-    longerHead = longer.head
-    print(longerHead.data)
-    
+
+# Approach 2: Without using extra space
+# Time Complexity = O(m + n), Space Complexity = O(1)
+def intersection(l1, l2):
+    len1, tail1 = get_length_and_tail(l1)
+    len2, tail2 = get_length_and_tail(l2)
+    if tail1 != tail2:
+        return None
+    longer = l1 if len1 > len2 else l2
+    shorter = l1 if len1 <= len2 else l2
+    diff = abs(len1 - len2)
     while diff > 0:
-        diff = diff - 1
-        longerHead = longerHead.next
-        
-    shorterHead = shorter.head
-    print(shorterHead.data)
+        longer = longer.next
+        diff -= 1
+    while longer and shorter:
+        if longer == shorter:
+            return longer
+        longer = longer.next
+        shorter = shorter.next
+    return None
+
+
+def get_length_and_tail(head):
+    length = 0
+    tail = head
+    while tail:
+        length += 1
+        tail = tail.next
+    return length, tail
+
     
-    while longerHead != shorterHead:
-        longerHead = longerHead.next
-        shorterHead = shorterHead.next
-        
-    return longerHead
     
-    
+def create_ll(arr, node_map):
+    ll = Node('*')
+    dummy = ll
+    for val in arr:
+        if val in node_map:
+            node = node_map[val]
+        else:
+            node = Node(val)
+            node_map[val] = node
+        dummy.next = node
+        dummy = dummy.next
+    return ll.next
 
 
-    
-l1 = LinkedList()
-l1.append(7)
-l1.append(1)
-l1.append(6)
-l1.append(5)
-l1.append(2)
-l1.append(3)
-
-l2 = LinkedList()
-l2.append(4)
-l2.append(8)
-l2.append(5)
-l2.append(2)
-l2.append(3)
+node_map = {}
+l1 = create_ll([7, 1, 6, 5, 2, 3], node_map)
+l2 = create_ll([4, 8, 5, 2, 3], node_map)
 
 
+ans1 = intersection_with_set(l1, l2)
+ans1.print_node()
+
+ans2 = intersection(l1, l2)
 if intersection(l1, l2) == None:
     print('No intersection')
 else:
     print('Intersection')
+    ans2.print_node()
 
          
         
