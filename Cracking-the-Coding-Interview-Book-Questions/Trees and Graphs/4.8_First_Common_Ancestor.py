@@ -14,6 +14,42 @@ class Tree:
         self.root = None
 
 
+# Approach 1: With link to parent
+# Find the depth of each node
+# Traverse from the deeper node up the parent until it reaches the level of shallow node
+# Traverse from both until we reach a common node --> first ancestor
+# Time Complexity = O(d), d = depth of tree
+# Space Complexity = O(1)
+def find_first_common_ancestor(node1, node2):
+    depth1 = get_depth(node1)
+    depth2 = get_depth(node2)
+    deep = node1 if depth1 > depth2 else node2
+    shallow = node2 if depth1 > depth2 else node1
+    # go up from deep
+    deep = go_up(deep, abs(depth1 - depth2))
+    # traverse up from both until they're equal
+    while deep != shallow and deep and shallow:
+        deep = deep.parent
+        shallow = shallow.parent
+    if not deep or not shallow:
+        return None
+    return deep
+
+def go_up(node, levels):
+    while levels > 0:
+        node = node.parent
+        levels -= 1
+    return node
+
+
+def get_depth(node):
+    depth = 0
+    while node:
+        depth += 1
+        node = node.parent
+    return depth
+
+# Approach 2: Traverse path from one node to check if its subtree covers the other node
 # to check whether the node is covered in tree with root
 def covers(root, p):
     if not root:

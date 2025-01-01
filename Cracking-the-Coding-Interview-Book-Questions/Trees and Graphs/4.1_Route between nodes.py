@@ -28,6 +28,8 @@ class Graph:
                     visited.append(i)
                     queue.append(i)
 
+        return False
+
 
 graph = Graph()
 graph.addEdge('a', 'b')
@@ -38,6 +40,10 @@ graph.addEdge('c', 'a')
 graph.addEdge('c', 'd')
 graph.addEdge('d', 'e')
 graph.addEdge('e', 'd')
+graph.addEdge('d', 'f')
+graph.addEdge('f', 'g')
 
 
 print(graph.BFS('a', 'd'))
+print(graph.BFS('a', 'e'))
+print(graph.BFS('g', 'd'))

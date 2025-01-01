@@ -18,51 +18,45 @@ class TreeNode:
         self.right = None
         self.parent = None
 
-    def left_most_child(self, node):
-        if not node:
-            return None
-        while node.left:
-            node = node.left
-        return node
-    
-    def in_order_successor(self, node):
-        if not node: 
-            return None
-        if node.right:
-            # finding leftmost child of the right subtree
-            return self.left_most_child(node.right)
-        else:
-            n = node
-            n_parent = node.parent
-            # go up
-            while(n_parent and n_parent.left != n):
-                n_parent = n.parent
-                n = n.parent
-            return n
+def left_most_child(node):
+    if not node:
+        return None
+    while node.left:
+        node = node.left
+    return node
+
+def in_order_successor(node):
+    if not node: 
+        return None
+    if node.right:
+        # finding leftmost child of the right subtree
+        return left_most_child(node.right)
+    else:
+        n = node
+        n_parent = node.parent
+        # go up
+        while(n_parent and n_parent.left != n):
+            n_parent = n.parent
+            n = n.parent
+        return n.parent
 
 
 
-tree = TreeNode(1)
+tree = TreeNode(4)
 tree.left = TreeNode(2)
-tree.left.parent = TreeNode(1)
+tree.left.parent = tree
 
-tree.right = TreeNode(3)
-tree.right.parent = TreeNode(1)
+node = TreeNode(1)
+tree.left.left = node
+tree.left.left.parent = tree.left
 
-tree.left.left = TreeNode(4)
-tree.left.left.parent = TreeNode(2)
+tree.left.right = TreeNode(3)
+tree.left.right.parent = tree.left
 
-tree.left.right = TreeNode(5)
-tree.left.right.parent = TreeNode(2)
+tree.right = TreeNode(6)
+tree.right.parent = tree
 
-tree.right.right = TreeNode(6)
-tree.right.right.parent = TreeNode(3)
+tree.right.left = TreeNode(5)
+tree.right.left.parent = tree.right
 
-tree.left.left.left = TreeNode(7)
-tree.left.left.left.parent = TreeNode(4)
-
-tree.left.left.left.left = TreeNode(8)
-tree.left.left.left.left.parent = TreeNode(4)
-
-print(tree.in_order_successor(TreeNode(4)).value)
-
+print(in_order_successor(node).value)

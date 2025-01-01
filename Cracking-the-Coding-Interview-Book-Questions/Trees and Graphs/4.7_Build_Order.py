@@ -8,20 +8,17 @@
 # dependencies: (a, d), (f, b), (b, d), (f, a), (d, c)
 # Output: f, e, a, b, d, c
 
-
+from collections import deque
 
 class Node:
     def __init__(self, name, neighbors):
         self.name = name
         self.neighbors = neighbors
-        self.dependencies = 0
-        self.map = {}
+        self.dependencies = 0 # in-degree of node
 
     def add_neighbor(self, end):
-        if self.name not in self.map:
-            self.neighbors.append(end)
-            self.map[self.name] = self
-            self.increment_dependencies()
+        self.neighbors.append(end)
+        end.increment_dependencies()
     
     def increment_dependencies(self):
         self.dependencies += 1
@@ -32,19 +29,24 @@ class Node:
 
 class Graph:
     def __init__(self):
-        self.nodes = []
-        self.map = {}
+        self.nodes = set()
+        self.map = {} # name of node : node object
 
     def get_or_create_node(self, name):
         if name not in self.map:
             node = Node(name, [])
             self.map[name] = node
+            self.nodes.add(node)
         return self.map[name]
     
     def add_edge(self, start_name, end_name):
         start = self.get_or_create_node(start_name)
         end = self.get_or_create_node(end_name)
         start.add_neighbor(end)
+
+    def print_graph(self):
+        for node in self.nodes:
+            print(f'Node = {node.name}, Neighbors = {[x.name for x in node.neighbors]}, Dependencies = {node.dependencies}')
     
 
 
@@ -64,40 +66,41 @@ def build_graph(projects, dependencies):
 def order_projects(graph):
     order = []
     order, end_of_list = add_non_dependents(order, graph, 0)
-
+    
     to_be_processed = 0
-    while(to_be_processed < len(order)):
+    while to_be_processed < len(graph):
         current = order[to_be_processed]
         if not current:
             return None
         children = current.neighbors
         for child in children:
             child.decrement_dependencies()
-
         order, end_of_list = add_non_dependents(order, children, end_of_list)
         to_be_processed += 1
 
     return order
-
+        
 
 def add_non_dependents(order, projects, index):
     for project in projects:
         if project.dependencies == 0:
-            order[index] = project
+            order.append(project)
             index += 1
     return order, index
-    
 
 
 def find_build_order(projects, dependencies):
     graph = build_graph(projects, dependencies)
-    print(graph)
+    print('Input graph:')
+    graph.print_graph()
+    print('---')
     build_order = order_projects(graph.nodes)
-    print(build_order)
     return build_order
 
 
 if __name__ == "__main__":
     projects = ['a', 'b', 'c', 'd', 'e', 'f']
-    dependencies = [('a', 'd'), ('f', 'b'), ('b', 'f'), ('f', 'a'), ('d', 'c')]
-    find_build_order(projects, dependencies)
+    dependencies = [('a', 'd'), ('f', 'b'), ('b', 'd'), ('f', 'a'), ('d', 'c')]
+    ans = find_build_order(projects, dependencies)
+    print(f'Final build order = {[x.name for x in ans]}')
+
