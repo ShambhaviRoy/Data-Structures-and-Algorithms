@@ -20,3 +20,6 @@ def search_rotated_array(arr, x):
 
 arr = [15, 16, 19, 20, 25, 1, 3, 4, 5, 7, 10, 14]
 print(search_rotated_array(arr, 5))
+
+arr = [4,5,6,7,0,1,2]
+print(search_rotated_array(arr, 0))
